@@ -10,8 +10,6 @@ class MoviesController < ApplicationController
     redirect_to movies_path if params[:home] == "1"
     @all_ratings = Movie.all_ratings
     @ratings_to_show = params[:ratings].present? ? params[:ratings].keys : Movie.all_ratings
-    #if not params[:ratings].present?
-      #@movies = Movie.with_ratings(@ratings_to_show)
     if params[:header_clicked] == 'movie_title'
       @title_hilite = 'hilite bg-warning'
       @movies = Movie.with_ratings(@ratings_to_show).sort_by(&:title)
