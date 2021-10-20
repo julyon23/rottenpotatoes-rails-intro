@@ -3,6 +3,6 @@ class Movie < ActiveRecord::Base
     return ['G','PG','PG-13','R']
   end
   def self.with_ratings(ratings)
-    return ratings.present? ? Movie.where(rating: ratings.keys) : Movie.all
+    return ratings.present? ? Movie.where(rating: ratings) : Movie.all
   end
 end
