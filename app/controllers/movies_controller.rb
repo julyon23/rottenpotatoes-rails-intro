@@ -7,9 +7,9 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.with_ratings(params[:ratings])
+    redirect_to movies_path if params[:home] == "1"
     @all_ratings = Movie.all_ratings
-    @ratings_to_show = params[:ratings].present? ? params[:ratings].keys : []
+    @ratings_to_show = params[:ratings].present? ? params[:ratings].keys : Movie.all_ratings
     if params[:header_clicked] == 'movie_title'
       @title_hilite = 'hilite bg-warning'
       @movies = Movie.with_ratings(@ratings_to_show).sort_by(&:title)
@@ -19,6 +19,8 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.with_ratings(@ratings_to_show)
     end
+    session[:ratings] = params[:ratings]
+    session[:header_clicked] = params[:header_clicked]
   end
 
   def new
